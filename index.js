@@ -39,11 +39,41 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
   
 }
 
+Person.prototype.eat = function (edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  }
+}
 
+Person.prototype.poop = function(){
+  this.stomach = [];
+}
+
+Person.prototype.toString = function (){
+  return `${this.name}, ${this.age}`;
+}
+
+const tyler = new Person('Tyler', 23);
+const nathan = new Person(`Nathan`, 22);
+
+tyler.eat('shrimp')
+tyler.eat('eggs')
+tyler.eat('burger')
+tyler.eat('pizza')
+
+console.log(`task 1`, tyler.stomach);
+
+tyler.poop();
+
+console.log(`task 1`, tyler.stomach);
+console.log(`task 1`, tyler.toString);
 
 
 
@@ -63,10 +93,22 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon; 
+  this.tank = 0;
+  this.odometer = 0;
 }
 
+Car.prototype.fill = function (gallons){
+  return this.tank = this.tank + gallons;
+    
+  }
+
+  const junkBox= new Car ('JunkBox', 20);
+
+console.log(`task 2`, junkBox.model);
+console.log(`task 2`, junkBox.fill(20));
 
 /*
   TASK 3
@@ -75,18 +117,29 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
 }
 
+Baby.prototype = Object.create(Person.prototype)
+Baby.prototype.play = function () {
+  return `Playing with ${this.favoriteToy}`
+}
+
+const zen = new Baby('Zen', 2, 'Little Tikes');
+
+console.log(`task 3`, zen);
 
 /* 
   TASK 4
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window/Global Binding is when the value of .this will be what the object is
+  2. Implicit Binidng is when .call calls a function and the object before the dot is .this
+  3. New Binding is when .this is specifically talking about the moment an object that was created
+  and returned by the constructor function
+  4. Explicit Bindg is whenever the .ca;l or .apply method is used then .this
+  is explicitly defined
 */
 
 
